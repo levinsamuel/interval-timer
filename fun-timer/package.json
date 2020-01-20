@@ -1,0 +1,20 @@
+{
+  "name": "fun-timer",
+  "version": "1.0.0",
+  "description": "for the fun times",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "interval-timer"
+  },
+  "keywords": [
+    "timer",
+    "fun",
+    "sam"
+  ],
+  "author": "sam",
+  "license": "ISC"
+}
