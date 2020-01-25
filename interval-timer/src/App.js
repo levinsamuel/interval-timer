@@ -5,7 +5,7 @@ import Main from './components/Main';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <header>
         <link
           rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"

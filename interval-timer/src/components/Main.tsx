@@ -9,7 +9,7 @@ export default function Main(props: PropTypes) {
 
     return (
         <div>
-            <Timer />
+            <Timer seconds={30} minutes={23} />
         </div>
     );
 }
