@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 type PropTypes = {
     seconds?: number,
     minutes?: number,
+    started?: boolean,
+    className?: string,
+    beepInterval?: number,
 };
 
 export default function Timer(props: PropTypes) {
@@ -10,21 +13,40 @@ export default function Timer(props: PropTypes) {
     const {
         seconds = 0,
         minutes = 0,
+        started = true,
+        className = 'h1',
+        beepInterval,
     } = props;
     // s
     const propSeconds = minutes * 60 + seconds;
     // ms
-    const startTime = new Date().getTime()
-    const endTime = (startTime/1000 | 0) + propSeconds
+    const getTimeSeconds = () => (new Date().getTime()/1000) | 0;
+    const originalStartTime = getTimeSeconds()
+    const originalEndTimeSeconds = (originalStartTime/1000 | 0) + propSeconds
 
-    const [originalEndTimeSeconds, ] = useState(endTime);
+    const [priorState, setPriorState] = useState(started)
+    const [endTimeSeconds, setEndTime] = useState(originalEndTimeSeconds);
     const [stateSeconds, setSeconds] = useState(propSeconds);
 
-    useEffect(() => {
+    if (started && !priorState) {
+        console.debug('changed from paused to started.')
+        setEndTime(getTimeSeconds() + stateSeconds)
+        setPriorState(started);
+    } else if (!started && priorState) {
+        console.debug('changed from started to paused.')
+        setPriorState(started);
+    }
 
+    useEffect(() => {
         const countDown = () => {
+            if (!started) {
+                return
+            }
             const currentTimeSeconds = (new Date().getTime() / 1000 | 0)
-            const newStateSeconds = originalEndTimeSeconds - currentTimeSeconds;
+            const newStateSeconds = endTimeSeconds - currentTimeSeconds;
+            if (newStateSeconds <= 0) {
+                window.clearInterval(timer)
+            }
             setSeconds(newStateSeconds)
         }
         const timer = window.setInterval(countDown, 100);
@@ -35,7 +57,7 @@ export default function Timer(props: PropTypes) {
     const displaySeconds = String(stateSeconds%60).padStart(2, '0');
     return (
         <div>
-            <p className='h1'>{displayMinutes}:{displaySeconds}</p>
+            <p className={className}>{displayMinutes}:{displaySeconds}</p>
         </div>
     )
 }
