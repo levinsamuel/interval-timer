@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import Timer from '../timer/components/Timer';
+import { Timer } from 'fun-timer';
 import Button from 'react-bootstrap/Button';
 
 type PropTypes = {
 
 };
+
+console.log('timer', Timer)
 
 export default function Main(props: PropTypes) {
 
