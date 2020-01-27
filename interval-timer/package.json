@@ -17,6 +17,9 @@
     "serialize-javascript": "^2.1.1",
     "tslib": "^1.10.0"
   },
+  "resolutions": {
+    "**/js-yaml": "^3.13.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
