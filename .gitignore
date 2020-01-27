@@ -105,7 +105,7 @@ dist
 
 # build
 build
-/lib
+/*/lib
 
 # ok
 .DS_Store
