@@ -9,7 +9,7 @@ export type PropTypes = {
 };
 
 export default function Timer(props: PropTypes) {
-  const { seconds = 0, minutes = 0, started = true, className = 'h1' } = props;
+  const { seconds = 0, minutes = 0, started = false, className = 'h1' } = props;
   // s
   const propSeconds = minutes * 60 + seconds;
   // ms
@@ -50,7 +50,7 @@ export default function Timer(props: PropTypes) {
   const displaySeconds = String(stateSeconds % 60).padStart(2, '0');
   return (
     <div>
-      <p className={className}>
+      <p id="timer-display" className={className}>
         {displayMinutes}:{displaySeconds}
       </p>
     </div>
