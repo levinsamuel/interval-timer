@@ -13,20 +13,20 @@ export default function Timer(props: PropTypes) {
   // s
   const propSeconds = minutes * 60 + seconds;
   // ms
-  const getTimeSeconds = () => (new Date().getTime() / 1000) | 0;
+  const getTimeSeconds = () => Math.trunc(new Date().getTime() / 1000);
   const originalStartTime = getTimeSeconds();
-  const originalEndTimeSeconds = ((originalStartTime / 1000) | 0) + propSeconds;
+  const originalEndTimeSeconds = (Math.trunc(originalStartTime / 1000)) + propSeconds;
 
   const [priorState, setPriorState] = useState(started);
   const [endTimeSeconds, setEndTime] = useState(originalEndTimeSeconds);
   const [stateSeconds, setSeconds] = useState(propSeconds);
 
   if (started && !priorState) {
-    console.debug('changed from paused to started.');
+    // console.debug('changed from paused to started.');
     setEndTime(getTimeSeconds() + stateSeconds);
     setPriorState(started);
   } else if (!started && priorState) {
-    console.debug('changed from started to paused.');
+    // console.debug('changed from started to paused.');
     setPriorState(started);
   }
 
@@ -35,7 +35,7 @@ export default function Timer(props: PropTypes) {
       if (!started) {
         return;
       }
-      const currentTimeSeconds = (new Date().getTime() / 1000) | 0;
+      const currentTimeSeconds = Math.trunc(new Date().getTime() / 1000);
       const newStateSeconds = endTimeSeconds - currentTimeSeconds;
       if (newStateSeconds <= 0) {
         window.clearInterval(timer);
@@ -46,7 +46,7 @@ export default function Timer(props: PropTypes) {
     return () => window.clearInterval(timer);
   });
 
-  const displayMinutes = String((stateSeconds / 60) | 0).padStart(2, '0');
+  const displayMinutes = String(Math.trunc(stateSeconds / 60)).padStart(2, '0');
   const displaySeconds = String(stateSeconds % 60).padStart(2, '0');
   return (
     <div>
